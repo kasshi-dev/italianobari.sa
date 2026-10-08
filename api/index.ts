@@ -1,4 +1,4 @@
 import app from '../custom-routes';
-import { handle } from '@hono/node-server/vercel';
+import { handle } from 'hono/vercel';
 
 export default handle(app);
