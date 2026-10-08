@@ -1,0 +1,1165 @@
+/* ==========================================================================
+   Italiano Bari — brand stylesheet
+   Ported from the original single-file menu site so the live site keeps its
+   exact look (cream paper, basil green, tomato red, gingham ticket cards),
+   plus the loyalty card and staff-dashboard pieces layered on top.
+   ========================================================================== */
+
+:root {
+  --cream: #fbf3df;
+  --paper: #fffdf6;
+  --basil: #1e4430;
+  --basil-2: #2e6b47;
+  --tomato: #c33c2e;
+  --mustard: #d89b3c;
+  --ink: #2a241a;
+  --grey: #8a8272;
+  --font-ar: 'Cairo', system-ui, sans-serif;
+  --font-head: 'Reem Kufi', 'Cairo', sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+}
+
+/* ------------------------------------------------------------ app shell */
+.ib-shell {
+  background: var(--cream);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.ib-app {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--cream);
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.15);
+  font-family: var(--font-ar);
+  color: var(--ink);
+}
+@media (min-width: 700px) {
+  .ib-shell {
+    background: #ede4c8;
+    padding: 24px 0;
+  }
+  .ib-app {
+    max-width: 760px;
+    border-radius: 22px;
+    min-height: auto;
+  }
+}
+@media (min-width: 1100px) {
+  .ib-app {
+    max-width: 960px;
+  }
+}
+
+/* ------------------------------------------------------------ hero */
+.ib-hero {
+  background: var(--basil);
+  color: var(--cream);
+  padding: 30px 24px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+.ib-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.06) 0, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(255, 255, 255, 0.05) 0, transparent 45%);
+}
+.ib-hero .ib-logo {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: var(--cream);
+  padding: 4px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+.ib-hero .ib-eyebrow {
+  font-family: var(--font-head);
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--mustard);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+  margin-top: 12px;
+}
+.ib-hero h1 {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1;
+  margin: 8px 0 6px;
+  position: relative;
+  z-index: 1;
+}
+.ib-hero .ib-ar-sub {
+  font-family: var(--font-head);
+  font-size: 20px;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 700px) {
+  .ib-hero h1 {
+    font-size: 52px;
+  }
+  .ib-hero .ib-ar-sub {
+    font-size: 24px;
+  }
+}
+
+/* ------------------------------------------- loyalty call-to-action pill */
+.ib-loyalty-cta {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 2px solid var(--mustard);
+  background: rgba(216, 155, 60, 0.14);
+  color: var(--cream);
+  font-family: var(--font-ar);
+  font-weight: 800;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+.ib-loyalty-cta:hover {
+  background: rgba(216, 155, 60, 0.28);
+  transform: translateY(-1px);
+}
+.ib-loyalty-cta .ib-cta-points {
+  background: var(--mustard);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 2px 12px;
+  font-size: 15px;
+  font-weight: 900;
+}
+.ib-loyalty-cta .ib-cta-sub {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.85;
+  display: block;
+}
+
+/* --------------------------------------------------- category chips nav */
+.ib-cat-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+  padding: 14px 18px;
+  background: var(--cream);
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(30, 68, 48, 0.12);
+  scrollbar-width: none;
+}
+.ib-cat-nav::-webkit-scrollbar {
+  display: none;
+}
+.ib-cat-nav button {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--basil);
+  background: var(--paper);
+  border: 1.5px solid var(--basil);
+  padding: 7px 16px;
+  border-radius: 999px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.ib-cat-nav button:active {
+  background: var(--basil);
+  color: var(--cream);
+}
+@media (min-width: 700px) {
+  .ib-cat-nav {
+    justify-content: center;
+    overflow-x: visible;
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------------------------------------------------------- menu sections */
+.ib-app section.ib-sec {
+  padding: 30px 22px 6px;
+  scroll-margin-top: 66px;
+}
+.ib-sec-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  /* it is an <h2> for screen readers — undo the user-agent heading styles so
+     the visual line stays exactly as designed */
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: inherit;
+  font-weight: 400;
+  border-bottom: 2px dashed rgba(30, 68, 48, 0.25);
+  padding-bottom: 10px;
+}
+.ib-sec-head .ar {
+  font-family: var(--font-head);
+  font-size: 34px;
+  color: var(--tomato);
+}
+.ib-sec-head .en {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--basil-2);
+}
+
+/* ------------------------------------------------------ item ticket card */
+.ib-item {
+  display: flex;
+  gap: 16px;
+  background: var(--paper);
+  border-radius: 18px;
+  padding: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(30, 24, 10, 0.06);
+  position: relative;
+}
+.ib-item img {
+  width: 112px;
+  height: 112px;
+  border-radius: 16px;
+  object-fit: cover;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.ib-item img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 14px rgba(30, 68, 48, 0.25);
+}
+.ib-item .info {
+  flex: 1;
+  text-align: right;
+  min-width: 0;
+}
+.ib-item .ar-name {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+.ib-item .en-name {
+  font-size: 15px;
+  color: var(--basil-2);
+  font-weight: 700;
+  margin-top: 3px;
+}
+.ib-item .price-row {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.ib-price-box {
+  text-align: center;
+}
+.ib-price-box .size-lbl {
+  font-size: 12px;
+  color: var(--grey);
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.ib-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--basil);
+  color: var(--cream);
+  font-size: 21px;
+  font-weight: 900;
+  padding: 7px 16px;
+  border-radius: 999px;
+}
+.ib-pill.single {
+  background: var(--tomato);
+}
+.ib-old {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: line-through;
+  margin-left: 6px;
+  font-weight: 600;
+}
+.ib-thumb {
+  position: relative;
+  flex-shrink: 0;
+  line-height: 0;
+}
+.ib-item .ib-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--tomato);
+  color: var(--cream);
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+.ib-item .note {
+  font-size: 14px;
+  color: var(--grey);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* desktop grid */
+@media (min-width: 700px) {
+  .ib-app section.ib-sec {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 22px;
+    padding: 34px 40px 6px;
+  }
+  .ib-sec-head {
+    grid-column: 1 / -1;
+  }
+  .ib-item {
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 1100px) {
+  .ib-app section.ib-sec {
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 36px 54px 6px;
+  }
+  .ib-item img {
+    width: 112px;
+    height: 112px;
+  }
+}
+
+/* ------------------------------------------------------ gingham divider */
+.ib-gingham {
+  height: 16px;
+  margin: 8px 0 0;
+  background:
+    repeating-linear-gradient(45deg, var(--tomato) 0 6px, transparent 6px 12px),
+    repeating-linear-gradient(-45deg, var(--tomato) 0 6px, transparent 6px 12px);
+  background-blend-mode: multiply;
+  opacity: 0.18;
+}
+
+/* ------------------------------------------------------------- drinks list */
+.ib-drink-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 4px;
+  border-bottom: 1px dotted rgba(30, 68, 48, 0.3);
+  font-weight: 700;
+  font-size: 19px;
+}
+.ib-drink-line .price {
+  color: var(--tomato);
+  font-weight: 900;
+  font-size: 22px;
+}
+
+/* --------------------------------------------------------------- footer */
+.ib-footer {
+  text-align: center;
+  padding: 34px 20px 40px;
+  color: var(--basil-2);
+}
+.ib-footer .sig {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--basil);
+}
+.ib-footer .tag {
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.6;
+  margin: 4px 0 20px;
+  text-transform: uppercase;
+}
+.ib-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.ib-footer-links a,
+.ib-footer-links button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--basil);
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.ib-footer-links svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* ------------------------------------------------------------- lightbox */
+.ib-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  cursor: zoom-out;
+}
+.ib-lightbox img {
+  max-width: 95vw;
+  max-height: 90vh;
+  border-radius: 16px;
+  object-fit: contain;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  cursor: default;
+}
+.ib-lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: var(--cream);
+  color: var(--basil);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* ==========================================================================
+   Loyalty panel (guest side)
+   ========================================================================== */
+
+.ib-loy-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(20, 16, 8, 0.55);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+}
+@media (min-width: 700px) {
+  .ib-loy-overlay {
+    align-items: center;
+  }
+}
+.ib-loy-panel {
+  width: 100%;
+  max-width: 480px;
+  max-height: 92vh;
+  max-height: 92dvh;
+  overflow-y: auto;
+  background: var(--cream);
+  border-top-left-radius: 26px;
+  border-top-right-radius: 26px;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
+  animation: ib-slide-up 0.22s ease-out;
+  overscroll-behavior: contain;
+}
+@media (min-width: 700px) {
+  .ib-loy-panel {
+    max-width: 560px;
+    border-radius: 26px;
+  }
+}
+@keyframes ib-slide-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.ib-loy-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--basil);
+  color: var(--cream);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ib-loy-head h2 {
+  font-family: var(--font-head);
+  font-size: 20px;
+  margin: 0;
+}
+.ib-loy-head p {
+  font-size: 12px;
+  opacity: 0.8;
+  margin: 2px 0 0;
+}
+.ib-loy-close {
+  background: var(--cream);
+  color: var(--basil);
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.ib-loy-body {
+  padding: 18px 20px 30px;
+}
+
+/* --------------------------------------------------------- loyalty card */
+.ib-card {
+  position: relative;
+  border-radius: 20px;
+  padding: 20px;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(216, 155, 60, 0.35) 0, transparent 45%),
+    linear-gradient(135deg, var(--basil) 0%, #163524 60%, var(--basil-2) 100%);
+  color: var(--cream);
+  box-shadow: 0 10px 26px rgba(30, 68, 48, 0.35);
+  overflow: hidden;
+}
+.ib-card .ib-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ib-card .ib-card-brand {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 19px;
+}
+.ib-card .ib-card-tier {
+  background: var(--mustard);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.ib-card .ib-card-name {
+  font-family: var(--font-head);
+  font-size: 22px;
+  margin-top: 14px;
+}
+.ib-card .ib-card-phone {
+  font-size: 13px;
+  opacity: 0.75;
+  letter-spacing: 1px;
+  direction: ltr;
+  text-align: right;
+}
+.ib-card .ib-card-points {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 16px 0 4px;
+}
+.ib-card .ib-card-points b {
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1;
+}
+.ib-card .ib-card-points span {
+  font-size: 14px;
+  opacity: 0.85;
+}
+.ib-progress-track {
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  overflow: hidden;
+  margin-top: 6px;
+}
+.ib-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--mustard), #f0c877);
+  transition: width 0.4s ease;
+}
+.ib-card .ib-card-next {
+  font-size: 12px;
+  opacity: 0.85;
+  margin-top: 8px;
+}
+.ib-card .ib-card-code {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.ib-card .ib-card-code .ib-code-val {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 20px;
+  letter-spacing: 3px;
+  direction: ltr;
+}
+
+/* --------------------------------------------------- rewards + history */
+.ib-loy-title {
+  font-family: var(--font-head);
+  font-size: 18px;
+  color: var(--basil);
+  margin: 24px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ib-reward-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+@media (min-width: 560px) {
+  .ib-reward-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.ib-reward {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--paper);
+  border: 1.5px solid rgba(30, 68, 48, 0.12);
+  border-radius: 16px;
+  padding: 12px;
+  text-align: right;
+}
+.ib-reward.locked {
+  opacity: 0.6;
+}
+.ib-reward .emoji {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.ib-reward .meta {
+  flex: 1;
+  min-width: 0;
+}
+.ib-reward .t {
+  font-weight: 800;
+  font-size: 15px;
+}
+.ib-reward .s {
+  font-size: 12px;
+  color: var(--grey);
+  font-weight: 700;
+}
+.ib-reward .cost {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--tomato);
+}
+.ib-reward button {
+  flex-shrink: 0;
+  border: none;
+  background: var(--basil);
+  color: var(--cream);
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.ib-reward button:disabled {
+  background: #c9c2b0;
+  cursor: not-allowed;
+}
+.ib-pending {
+  background: rgba(216, 155, 60, 0.16);
+  border: 1.5px dashed var(--mustard);
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.ib-pending .code {
+  font-family: ui-monospace, monospace;
+  font-size: 17px;
+  letter-spacing: 2px;
+  color: var(--tomato);
+  direction: ltr;
+  display: inline-block;
+}
+.ib-ledger-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 2px;
+  border-bottom: 1px dotted rgba(30, 68, 48, 0.22);
+  font-size: 14px;
+}
+.ib-ledger-row .pts {
+  font-weight: 900;
+  white-space: nowrap;
+}
+.ib-ledger-row .pts.plus {
+  color: var(--basil-2);
+}
+.ib-ledger-row .pts.minus {
+  color: var(--tomato);
+}
+.ib-ledger-row .when {
+  font-size: 11px;
+  color: var(--grey);
+}
+
+/* ------------------------------------------------------------------ forms */
+.ib-field {
+  display: block;
+  margin-bottom: 12px;
+}
+.ib-field > span {
+  display: block;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--basil);
+  margin-bottom: 5px;
+}
+.ib-field input,
+.ib-field textarea,
+.ib-field select {
+  width: 100%;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(30, 68, 48, 0.25);
+  background: var(--paper);
+  color: var(--ink);
+  outline: none;
+}
+.ib-field input:focus,
+.ib-field textarea:focus,
+.ib-field select:focus {
+  border-color: var(--basil);
+  box-shadow: 0 0 0 3px rgba(30, 68, 48, 0.12);
+}
+.ib-field input[type='tel'],
+.ib-field input[inputmode='numeric'] {
+  direction: ltr;
+  text-align: left;
+  letter-spacing: 1px;
+}
+.ib-btn {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 13px 18px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  background: var(--basil);
+  color: var(--cream);
+}
+.ib-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.ib-btn.ghost {
+  background: transparent;
+  color: var(--basil);
+  border: 1.5px solid var(--basil);
+}
+.ib-btn.tomato {
+  background: var(--tomato);
+}
+.ib-toggle {
+  display: flex;
+  background: rgba(30, 68, 48, 0.1);
+  border-radius: 999px;
+  padding: 4px;
+  margin-bottom: 18px;
+}
+.ib-toggle button {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 9px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--basil);
+}
+.ib-toggle button.on {
+  background: var(--paper);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+.ib-error {
+  background: rgba(195, 60, 46, 0.1);
+  border: 1.5px solid rgba(195, 60, 46, 0.4);
+  color: var(--tomato);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.ib-hint {
+  font-size: 12px;
+  color: var(--grey);
+  font-weight: 600;
+  line-height: 1.6;
+}
+.ib-big-num {
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--basil);
+  text-align: center;
+  direction: ltr;
+}
+.ib-perforation {
+  height: 12px;
+  margin: 16px -20px;
+  background:
+    radial-gradient(circle at 6px 6px, var(--cream) 6px, transparent 6px) repeat-x;
+  background-size: 20px 12px;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   Staff dashboard
+   ========================================================================== */
+
+.staff-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #f4efe2;
+  font-family: var(--font-ar);
+  color: var(--ink);
+}
+.staff-topbar {
+  background: var(--basil);
+  color: var(--cream);
+  padding: 12px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.staff-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 16px;
+  background: var(--paper);
+  border-bottom: 1px solid rgba(30, 68, 48, 0.12);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  scrollbar-width: none;
+}
+.staff-tabs::-webkit-scrollbar {
+  display: none;
+}
+.staff-tabs button {
+  flex: 0 0 auto;
+  border: 1.5px solid rgba(30, 68, 48, 0.2);
+  background: #fff;
+  color: var(--basil);
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.staff-tabs button.on {
+  background: var(--basil);
+  color: var(--cream);
+  border-color: var(--basil);
+}
+.staff-tabs button .pill-count {
+  background: var(--tomato);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0 7px;
+  font-size: 11px;
+  margin-inline-start: 6px;
+}
+.staff-card {
+  background: #fff;
+  border: 1px solid rgba(30, 68, 48, 0.1);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(30, 24, 10, 0.05);
+}
+.staff-kpi {
+  background: #fff;
+  border: 1px solid rgba(30, 68, 48, 0.1);
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.staff-kpi .k {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--grey);
+}
+.staff-kpi .v {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--basil);
+  line-height: 1.2;
+}
+.staff-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(30, 68, 48, 0.1);
+  width: 100%;
+  text-align: right;
+  font-family: inherit;
+  cursor: pointer;
+}
+.staff-row:hover {
+  border-color: var(--basil);
+}
+.staff-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--basil);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.staff-badge {
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.staff-badge.bronze {
+  background: rgba(140, 100, 60, 0.15);
+  color: #8c643c;
+}
+.staff-badge.silver {
+  background: rgba(120, 130, 140, 0.18);
+  color: #5c6b78;
+}
+.staff-badge.gold {
+  background: rgba(216, 155, 60, 0.22);
+  color: #9a6b12;
+}
+.staff-badge.pending {
+  background: rgba(216, 155, 60, 0.22);
+  color: #9a6b12;
+}
+.staff-badge.approved {
+  background: rgba(46, 107, 71, 0.16);
+  color: var(--basil-2);
+}
+.staff-badge.rejected {
+  background: rgba(195, 60, 46, 0.14);
+  color: var(--tomato);
+}
+.staff-numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  max-width: 240px;
+}
+.staff-numpad button {
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 12px 0;
+  border-radius: 12px;
+  border: 1.5px solid rgba(30, 68, 48, 0.2);
+  background: #fff;
+  color: var(--basil);
+  cursor: pointer;
+}
+.staff-numpad button:active {
+  background: var(--basil);
+  color: var(--cream);
+}
+
+/* utility */
+.ib-spin {
+  animation: ib-rotate 0.9s linear infinite;
+}
+@keyframes ib-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   Bilingual shell — top bar (language + WhatsApp), centred logo, contact
+   ========================================================================== */
+
+/* RTL puts a block-level image against the right edge; centre it explicitly. */
+.ib-hero .ib-logo {
+  margin-inline: auto;
+}
+
+.ib-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  height: 46px;
+  padding: 0 14px;
+  background: var(--basil);
+  color: var(--cream);
+}
+@media (min-width: 700px) {
+  .ib-topbar {
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+  }
+}
+
+.ib-lang-toggle,
+.ib-topbar-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(251, 243, 223, 0.12);
+  color: var(--cream);
+  border: 1.5px solid rgba(251, 243, 223, 0.45);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-family: var(--font-ar);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.ib-lang-toggle:hover,
+.ib-topbar-wa:hover {
+  background: rgba(251, 243, 223, 0.24);
+  border-color: var(--cream);
+}
+.ib-lang-toggle:active,
+.ib-topbar-wa:active {
+  transform: translateY(1px);
+}
+
+/* The category strip sticks directly under the top bar. */
+.ib-cat-nav {
+  top: 46px;
+}
+
+/* Floating WhatsApp — thumb-reachable on a phone, above the sticky bars and
+   below the loyalty overlay / lightbox (both 9000+). */
+.ib-wa-float {
+  position: fixed;
+  inset-block-end: 18px;
+  inset-inline-end: 18px;
+  z-index: 50;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(30, 24, 10, 0.3);
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.ib-wa-float:hover {
+  background: #1ebe5a;
+  transform: translateY(-2px);
+}
+
+.ib-footer-wa-number {
+  margin-top: 12px;
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--basil);
+  letter-spacing: 0.5px;
+}
+
+/* In English mode the secondary line holds Arabic text, so drop the Latin
+   italic serif and use the Arabic face. */
+html[lang='en'] .ib-sec-head .en,
+html[lang='en'] .ib-item .en-name {
+  font-family: var(--font-ar);
+  font-style: normal;
+}
+
+/* The top bar (46px) and the category strip are both sticky, so an anchored
+   jump to a section must stop clear of them or the heading hides underneath. */
+.ib-app section.ib-sec {
+  scroll-margin-top: 104px;
+}

@@ -1,0 +1,140 @@
+// SHOGO:CUSTOM-START prisma-header
+// Managed by Shogo. Do not add a datasource `url` or change the generator `provider` — the database URL is configured in prisma.config.ts (Prisma 7+).
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+// SHOGO:CUSTOM-END
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+// ---------------------------------------------------------------------------
+// Loyalty / Rewards Program
+// ---------------------------------------------------------------------------
+
+/// A restaurant guest enrolled in the loyalty program. Identified by phone
+/// number (the only thing staff needs at the counter).
+model Customer {
+  id             String   @id @default(cuid())
+  phone          String   @unique // normalized: 05XXXXXXXX
+  name           String?
+  pinHash        String // 4-6 digit customer PIN, scrypt-hashed
+  pointsBalance  Int      @default(0) // spendable points
+  lifetimePoints Int      @default(0) // never decreases -> drives tier
+  visits         Int      @default(0)
+  notes          String?
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  transactions PointsTransaction[]
+  redemptions  Redemption[]
+
+  @@map("customers")
+}
+
+/// Immutable ledger of every points movement. `points` is signed
+/// (+ earn / refund, - redeem / deduct).
+model PointsTransaction {
+  id           String   @id @default(cuid())
+  customerId   String
+  points       Int
+  type         String // earn | redeem | refund | adjust | welcome
+  reason       String?
+  staffName    String?
+  balanceAfter Int
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId, createdAt])
+  @@map("points_transactions")
+}
+
+/// A reward the guest can spend points on.
+model Reward {
+  id         String   @id @default(cuid())
+  titleAr    String
+  titleEn    String
+  descAr     String?
+  emoji      String   @default("🎁")
+  costPoints Int
+  sortOrder  Int      @default(0)
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  redemptions Redemption[]
+
+  @@map("rewards")
+}
+
+/// A redemption request made by a guest. Points are held (deducted) when the
+/// request is created and refunded if staff reject it.
+model Redemption {
+  id          String    @id @default(cuid())
+  code        String    @unique
+  customerId  String
+  rewardId    String
+  rewardTitle String
+  pointsCost  Int
+  status      String    @default("pending") // pending | approved | rejected
+  staffName   String?
+  decidedAt   DateTime? @map("decided_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  reward   Reward   @relation(fields: [rewardId], references: [id])
+
+  @@index([status, createdAt])
+  @@map("redemptions")
+}
+
+/// Staff accounts for the dashboard. Never exposed publicly.
+model StaffUser {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  name      String
+  pinHash   String
+  role      String   @default("staff") // admin | staff
+  active    Boolean  @default(true)
+  lastLogin DateTime? @map("last_login")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("staff_users")
+}
+
+/// Opaque bearer sessions for both guests (role=customer) and staff (role=staff).
+model LoyaltySession {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  role      String // customer | staff
+  subjectId String
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([token])
+  @@map("loyalty_sessions")
+}
+
+/// Single-row program configuration (id is always "default").
+model LoyaltySettings {
+  id           String   @id @default("default")
+  pointsPerSar Int      @default(1) // points earned per 1 SAR spent
+  silverMin    Int      @default(500)
+  goldMin      Int      @default(1500)
+  welcomeBonus Int      @default(100)
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("loyalty_settings")
+}

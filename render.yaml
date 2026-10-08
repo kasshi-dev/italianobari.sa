@@ -1,0 +1,27 @@
+# Render blueprint — deploys the whole app (website + API + database) as one
+# service. In Render: New > Blueprint, point it at this repository.
+#
+# NOTE: a persistent disk needs a paid instance type (Starter or up). On the
+# free tier you get no disk, so the SQLite file is wiped on every deploy —
+# fine for a demo, not for real customers. To stay on free, drop the `disk:`
+# block and set DATABASE_URL to a Turso database instead (see DEPLOY.md).
+
+services:
+  - type: web
+    name: italiano-bari
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter
+    healthCheckPath: /health
+    autoDeploy: true
+    disk:
+      name: loyalty-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_URL
+        value: file:/data/loyalty.db
+      # Runs the seeder on boot; it is idempotent, so leaving it on is safe
+      # and repairs the default rewards/settings/staff rows if they go missing.
+      - key: RUN_SEED
+        value: "1"
