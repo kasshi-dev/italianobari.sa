@@ -17,7 +17,7 @@
  */
 
 import { Hono } from 'hono'
-import { prisma } from './src/lib/db'
+import { prisma } from './src/lib/db.js'
 
 const app = new Hono()
 
