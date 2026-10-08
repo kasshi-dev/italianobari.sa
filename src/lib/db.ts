@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 // Copyright (C) 2026 Shogo Technologies, Inc.
 import { PrismaLibSql } from '@prisma/adapter-libsql'
-import { PrismaClient } from '../generated/prisma/client'
+import { PrismaClient } from '../generated/prisma/client.js'
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
