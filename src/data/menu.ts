@@ -20,6 +20,10 @@ export interface MenuItem {
   note?: string
   /** English note shown when the site is switched to English. */
   noteEn?: string
+  /** Short description under the dish name (Arabic). */
+  descAr?: string
+  /** Short description under the dish name (English). */
+  descEn?: string
   prices: MenuPrice[]
 }
 
@@ -52,8 +56,8 @@ export const SECTIONS: MenuSection[] = [
         note: 'حار / غير حار',
         noteEn: 'Spicy / Mild',
         prices: [
-          { label: 'صغير', labelEn: 'Small', old: 35, value: 29 },
-          { label: 'كبير', labelEn: 'Large', old: 45, value: 37 },
+          { label: 'صغير', labelEn: 'Small', value: 29 },
+          { label: 'كبير', labelEn: 'Large', value: 37 },
         ],
       },
       {
@@ -61,8 +65,8 @@ export const SECTIONS: MenuSection[] = [
         enName: 'Pepperoni Pizza',
         img: '/menu/pepperoni-pizza.jpg',
         prices: [
-          { label: 'صغير', labelEn: 'Small', old: 35, value: 29 },
-          { label: 'كبير', labelEn: 'Large', old: 43, value: 37 },
+          { label: 'صغير', labelEn: 'Small', value: 29 },
+          { label: 'كبير', labelEn: 'Large', value: 37 },
         ],
       },
       {
@@ -70,8 +74,8 @@ export const SECTIONS: MenuSection[] = [
         enName: 'Truffle Pizza',
         img: '/menu/truffle-pizza.jpg',
         prices: [
-          { label: 'صغير', labelEn: 'Small', old: 35, value: 29 },
-          { label: 'كبير', labelEn: 'Large', old: 45, value: 37 },
+          { label: 'صغير', labelEn: 'Small', value: 29 },
+          { label: 'كبير', labelEn: 'Large', value: 37 },
         ],
       },
       {
@@ -79,8 +83,8 @@ export const SECTIONS: MenuSection[] = [
         enName: 'Vegetables Pizza',
         img: '/menu/veg-pizza.jpg',
         prices: [
-          { label: 'صغير', labelEn: 'Small', old: 29, value: 25 },
-          { label: 'كبير', labelEn: 'Large', old: 43, value: 33 },
+          { label: 'صغير', labelEn: 'Small', value: 25 },
+          { label: 'كبير', labelEn: 'Large', value: 33 },
         ],
       },
       {
@@ -88,8 +92,8 @@ export const SECTIONS: MenuSection[] = [
         enName: 'Margherita Pizza',
         img: '/menu/margherita-pizza.jpg',
         prices: [
-          { label: 'صغير', labelEn: 'Small', old: 29, value: 25 },
-          { label: 'كبير', labelEn: 'Large', old: 39, value: 33 },
+          { label: 'صغير', labelEn: 'Small', value: 25 },
+          { label: 'كبير', labelEn: 'Large', value: 33 },
         ],
       },
       {
@@ -97,8 +101,8 @@ export const SECTIONS: MenuSection[] = [
         enName: 'Bianca Chicken Pizza',
         img: '/menu/bianca-chicken-pizza.jpg',
         prices: [
-          { label: 'صغير', labelEn: 'Small', old: 35, value: 29 },
-          { label: 'كبير', labelEn: 'Large', old: 45, value: 37 },
+          { label: 'صغير', labelEn: 'Small', value: 29 },
+          { label: 'كبير', labelEn: 'Large', value: 37 },
         ],
       },
     ],
@@ -114,19 +118,19 @@ export const SECTIONS: MenuSection[] = [
         arName: 'مكرونة سباغيتي بالدجاج - صلصه حمراء',
         enName: 'Spaghetti Pasta | Red Sauce',
         img: DRIVE('1hhqxGSjQxKypADfKqMFnbUUZ_4X5Oz6U'),
-        prices: [{ old: 35, value: 29, suffix: 'SR', single: true }],
+        prices: [{ value: 29, suffix: 'SR', single: true }],
       },
       {
         arName: 'مكرونة بيني بالدجاج - صلصة مُخلوطة',
         enName: 'Penne Pasta With Chicken | Mixed Sauce',
         img: DRIVE('1SWvuYCQ_Xvw1xv2SKO0YU6EMiybv51Is'),
-        prices: [{ old: 35, value: 29, suffix: 'SR', single: true }],
+        prices: [{ value: 29, suffix: 'SR', single: true }],
       },
       {
         arName: 'تلياتيلي بالدجاج - صلصة بيضاء',
         enName: 'Tagliatelle Pasta With Chicken | White Sauce',
         img: DRIVE('1ehnFOkgvrmPmETfYZRsc4dDAcj6sNeek'),
-        prices: [{ old: 35, value: 29, suffix: 'SR', single: true }],
+        prices: [{ value: 29, suffix: 'SR', single: true }],
       },
     ],
   },
@@ -147,13 +151,13 @@ export const SECTIONS: MenuSection[] = [
         arName: 'سلطة شمندر',
         enName: 'Beetroot Salad',
         img: DRIVE('14JjJ4J8uJNL_sTevlUjPaeUUgmnULRow'),
-        prices: [{ old: 21, value: 17, suffix: 'SR', single: true }],
+        prices: [{ value: 17, suffix: 'SR', single: true }],
       },
       {
         arName: 'سلطة الخوخ',
         enName: 'Peach Salad',
         img: DRIVE('1dEc1va0mYbC_ycgUk0J3PPxVK5E1LNiD'),
-        prices: [{ old: 21, value: 17, suffix: 'SR', single: true }],
+        prices: [{ value: 17, suffix: 'SR', single: true }],
       },
     ],
   },
