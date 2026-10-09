@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select'
 import { ApiError, formatDate, staffApi, type SettingsView, type StaffView } from '@/lib/loyalty'
+import { useStaffLang } from '@/lib/staffI18n'
 
 interface Props {
   token: string
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export default function TeamTab({ token, me, onAuthLost }: Props) {
+  const { t } = useStaffLang()
   const [team, setTeam] = useState<StaffView[]>([])
   const [settings, setSettings] = useState<(SettingsView & { id: string }) | null>(null)
   const [loading, setLoading] = useState(true)
@@ -30,9 +32,9 @@ export default function TeamTab({ token, me, onAuthLost }: Props) {
   const load = useCallback(async () => {
     setLoading(true)
     try {
-      const [t, s] = await Promise.all([staffApi.team(token), staffApi.settings(token)])
-      setTeam(t.team)
-      setSettings(s.settings)
+      const [teamRes, settingsRes] = await Promise.all([staffApi.team(token), staffApi.settings(token)])
+      setTeam(teamRes.team)
+      setSettings(settingsRes.settings)
       setError(null)
     } catch (e) {
       const err = e as ApiError
@@ -72,6 +74,8 @@ export default function TeamTab({ token, me, onAuthLost }: Props) {
     )
   }
 
+  const roleName = (role: string) => (role === 'admin' ? t('مدير', 'Admin') : t('موظف', 'Staff'))
+
   return (
     <div className="space-y-4">
       {error && <div className="ib-error">{error}</div>}
@@ -84,16 +88,20 @@ export default function TeamTab({ token, me, onAuthLost }: Props) {
       {/* ------------------------------------------------------- settings */}
       <div className="staff-card">
         <div className="ib-loy-title" style={{ margin: '0 0 12px' }}>
-          إعدادات البرنامج
+          {t('إعدادات البرنامج', 'Program settings')}
         </div>
         {settings && (
           <SettingsForm
             settings={settings}
             disabled={!isAdmin || busy}
-            onSave={(data) => run(() => staffApi.updateSettings(token, data), 'تم حفظ الإعدادات')}
+            onSave={(data) =>
+              run(() => staffApi.updateSettings(token, data), t('تم حفظ الإعدادات', 'Settings saved'))
+            }
           />
         )}
-        {!isAdmin && <p className="ib-hint mt-2">التعديل متاح للمدير فقط.</p>}
+        {!isAdmin && (
+          <p className="ib-hint mt-2">{t('التعديل متاح للمدير فقط.', 'Only an admin can edit these.')}</p>
+        )}
       </div>
 
       {/* ----------------------------------------------------------- team */}
@@ -101,13 +109,15 @@ export default function TeamTab({ token, me, onAuthLost }: Props) {
         <div className="flex items-center justify-between gap-3">
           <div>
             <div className="ib-loy-title" style={{ margin: 0 }}>
-              حسابات الموظفين
+              {t('حسابات الموظفين', 'Staff accounts')}
             </div>
-            <div className="ib-hint">من يمكنه الدخول إلى لوحة التحكم</div>
+            <div className="ib-hint">
+              {t('من يمكنه الدخول إلى لوحة التحكم', 'Who can sign in to the dashboard')}
+            </div>
           </div>
           {isAdmin && (
             <Button size="sm" variant={showAdd ? 'outline' : 'default'} onClick={() => setShowAdd((v) => !v)}>
-              <UserPlus size={15} /> {showAdd ? 'إلغاء' : 'موظف جديد'}
+              <UserPlus size={15} /> {showAdd ? t('إلغاء', 'Cancel') : t('موظف جديد', 'New staff')}
             </Button>
           )}
         </div>
@@ -115,7 +125,7 @@ export default function TeamTab({ token, me, onAuthLost }: Props) {
         {showAdd && isAdmin && (
           <div className="mt-4 grid gap-3 border-t border-[rgba(30,68,48,.12)] pt-4 sm:grid-cols-2">
             <label className="ib-field mb-0">
-              <span>اسم المستخدم (إنجليزي)</span>
+              <span>{t('اسم المستخدم (إنجليزي)', 'Username (English)')}</span>
               <Input
                 dir="ltr"
                 value={newStaff.username}
@@ -123,11 +133,11 @@ export default function TeamTab({ token, me, onAuthLost }: Props) {
               />
             </label>
             <label className="ib-field mb-0">
-              <span>الاسم</span>
+              <span>{t('الاسم', 'Name')}</span>
               <Input value={newStaff.name} onChange={(e) => setNewStaff({ ...newStaff, name: e.target.value })} />
             </label>
             <label className="ib-field mb-0">
-              <span>الرمز السري (4-6 أرقام)</span>
+              <span>{t('الرمز السري (4-6 أرقام)', 'PIN (4-6 digits)')}</span>
               <Input
                 dir="ltr"
                 inputMode="numeric"
@@ -136,12 +146,12 @@ export default function TeamTab({ token, me, onAuthLost }: Props) {
               />
             </label>
             <label className="ib-field mb-0">
-              <span>الصلاحية</span>
+              <span>{t('الصلاحية', 'Role')}</span>
               <Select value={newStaff.role} onValueChange={(v) => setNewStaff({ ...newStaff, role: v })}>
-                <SelectTrigger>{newStaff.role === 'admin' ? 'مدير' : 'موظف'}</SelectTrigger>
+                <SelectTrigger>{roleName(newStaff.role)}</SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="staff">موظف</SelectItem>
-                  <SelectItem value="admin">مدير</SelectItem>
+                  <SelectItem value="staff">{t('موظف', 'Staff')}</SelectItem>
+                  <SelectItem value="admin">{t('مدير', 'Admin')}</SelectItem>
                 </SelectContent>
               </Select>
             </label>
@@ -153,68 +163,70 @@ export default function TeamTab({ token, me, onAuthLost }: Props) {
                     await staffApi.createStaff(token, newStaff)
                     setNewStaff({ username: '', name: '', pin: '', role: 'staff' })
                     setShowAdd(false)
-                  }, 'تمت إضافة الموظف')
+                  }, t('تمت إضافة الموظف', 'Staff member added'))
                 }
               >
-                <Plus size={15} /> إضافة
+                <Plus size={15} /> {t('إضافة', 'Add')}
               </Button>
             </div>
           </div>
         )}
 
         <div className="mt-4 space-y-2">
-          {team.map((t) => (
+          {team.map((m) => (
             <div
-              key={t.id}
+              key={m.id}
               className="rounded-xl border border-[rgba(30,68,48,.12)] p-3"
-              style={{ opacity: t.active === false ? 0.55 : 1 }}
+              style={{ opacity: m.active === false ? 0.55 : 1 }}
             >
               <div className="flex flex-wrap items-center gap-3">
-                <span className="staff-avatar">{t.name.slice(0, 1)}</span>
+                <span className="staff-avatar">{m.name.slice(0, 1)}</span>
                 <div className="min-w-0 flex-1">
                   <div className="font-extrabold">
-                    {t.name}
-                    {t.id === me.id && <span className="ib-hint"> (أنت)</span>}
+                    {m.name}
+                    {m.id === me.id && <span className="ib-hint"> {t('(أنت)', '(you)')}</span>}
                   </div>
                   <div dir="ltr" className="text-left text-xs font-bold text-[var(--grey)]">
-                    @{t.username} • {t.role === 'admin' ? 'مدير' : 'موظف'}
-                    {t.lastLogin ? ` • آخر دخول ${formatDate(t.lastLogin)}` : ''}
+                    @{m.username} • {roleName(m.role)}
+                    {m.lastLogin ? ` • ${t('آخر دخول', 'last login')} ${formatDate(m.lastLogin)}` : ''}
                   </div>
                 </div>
-                {t.active === false && <span className="staff-badge rejected">معطّل</span>}
+                {m.active === false && <span className="staff-badge rejected">{t('معطّل', 'Disabled')}</span>}
                 <div className="flex flex-wrap gap-2">
                   <Button
                     size="sm"
                     variant="outline"
                     onClick={() => {
-                      setPinFor(pinFor === t.id ? null : t.id)
+                      setPinFor(pinFor === m.id ? null : m.id)
                       setNewPin('')
                     }}
                   >
-                    <KeyRound size={14} /> الرمز
+                    <KeyRound size={14} /> {t('الرمز', 'PIN')}
                   </Button>
-                  {isAdmin && t.id !== me.id && (
+                  {isAdmin && m.id !== me.id && (
                     <Button
                       size="sm"
                       variant="outline"
                       disabled={busy}
                       onClick={() =>
                         run(
-                          () => staffApi.updateStaff(token, t.id, { active: t.active === false }),
-                          t.active === false ? 'تم تفعيل الحساب' : 'تم تعطيل الحساب',
+                          () => staffApi.updateStaff(token, m.id, { active: m.active === false }),
+                          m.active === false
+                            ? t('تم تفعيل الحساب', 'Account enabled')
+                            : t('تم تعطيل الحساب', 'Account disabled'),
                         )
                       }
                     >
-                      {t.active === false ? 'تفعيل' : 'تعطيل'}
+                      {m.active === false ? t('تفعيل', 'Enable') : t('تعطيل', 'Disable')}
                     </Button>
                   )}
                 </div>
               </div>
 
-              {pinFor === t.id && (
+              {pinFor === m.id && (
                 <div className="mt-3 flex flex-wrap items-end gap-2 border-t border-[rgba(30,68,48,.12)] pt-3">
                   <label className="ib-field mb-0">
-                    <span>رمز سري جديد</span>
+                    <span>{t('رمز سري جديد', 'New PIN')}</span>
                     <Input
                       dir="ltr"
                       inputMode="numeric"
@@ -225,14 +237,19 @@ export default function TeamTab({ token, me, onAuthLost }: Props) {
                   <Button
                     disabled={busy || !/^\d{4,6}$/.test(newPin)}
                     onClick={() =>
-                      run(async () => {
-                        await staffApi.updateStaff(token, t.id, { pin: newPin })
-                        setPinFor(null)
-                        setNewPin('')
-                      }, t.id === me.id ? 'تم تغيير رمزك — سجّل الدخول من جديد' : 'تم تغيير الرمز السري')
+                      run(
+                        async () => {
+                          await staffApi.updateStaff(token, m.id, { pin: newPin })
+                          setPinFor(null)
+                          setNewPin('')
+                        },
+                        m.id === me.id
+                          ? t('تم تغيير رمزك — سجّل الدخول من جديد', 'Your PIN was changed — please sign in again')
+                          : t('تم تغيير الرمز السري', 'PIN changed'),
+                      )
                     }
                   >
-                    <Save size={15} /> حفظ
+                    <Save size={15} /> {t('حفظ', 'Save')}
                   </Button>
                 </div>
               )}
@@ -253,6 +270,7 @@ function SettingsForm({
   disabled: boolean
   onSave: (data: Partial<SettingsView>) => void
 }) {
+  const { t } = useStaffLang()
   const [pointsPerSar, setPointsPerSar] = useState(String(settings.pointsPerSar))
   const [silverMin, setSilverMin] = useState(String(settings.silverMin))
   const [goldMin, setGoldMin] = useState(String(settings.goldMin))
@@ -261,7 +279,7 @@ function SettingsForm({
   return (
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
       <label className="ib-field mb-0">
-        <span>نقاط لكل ١ ريال</span>
+        <span>{t('نقاط لكل ١ ريال', 'Points per 1 SAR')}</span>
         <Input
           inputMode="numeric"
           disabled={disabled}
@@ -270,7 +288,7 @@ function SettingsForm({
         />
       </label>
       <label className="ib-field mb-0">
-        <span>حد المستوى الفضي</span>
+        <span>{t('حد المستوى الفضي', 'Silver tier threshold')}</span>
         <Input
           inputMode="numeric"
           disabled={disabled}
@@ -279,7 +297,7 @@ function SettingsForm({
         />
       </label>
       <label className="ib-field mb-0">
-        <span>حد المستوى الذهبي</span>
+        <span>{t('حد المستوى الذهبي', 'Gold tier threshold')}</span>
         <Input
           inputMode="numeric"
           disabled={disabled}
@@ -288,7 +306,7 @@ function SettingsForm({
         />
       </label>
       <label className="ib-field mb-0">
-        <span>مكافأة الترحيب</span>
+        <span>{t('مكافأة الترحيب', 'Welcome bonus')}</span>
         <Input
           inputMode="numeric"
           disabled={disabled}
@@ -308,7 +326,7 @@ function SettingsForm({
             })
           }
         >
-          <Save size={15} /> حفظ الإعدادات
+          <Save size={15} /> {t('حفظ الإعدادات', 'Save settings')}
         </Button>
       </div>
     </div>
