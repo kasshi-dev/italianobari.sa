@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 import { useState } from 'react'
-import { Gift, Instagram, Languages, MapPin, MessageCircle, Music2, ShieldCheck } from 'lucide-react'
+import { Gift, Instagram, Languages, MapPin, MessageCircle, Music2, ShieldCheck, Star } from 'lucide-react'
 import { SECTIONS, scrollToSection, type MenuItem } from '@/data/menu'
 import type { Loyalty } from '@/components/loyalty/useLoyalty'
 import { useI18n, whatsappLink, WHATSAPP_DISPLAY, type Lang } from '@/lib/i18n'
@@ -116,13 +116,13 @@ export default function MenuPage({ session, onOpenLoyalty }: Props) {
             <a href={waHref} target="_blank" rel="noopener noreferrer">
               <MessageCircle /> WhatsApp
             </a>
-                        <a
-              href="https://maps.app.goo.gl/bSbbJE3dEfjpRJBa9"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MapPin /> {pick('الموقع', 'Location')}
-            </a>
+             <a
+  href="https://g.page/r/CVRDyVfzuEPPEAE/review"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <Star size={16} /> {pick('أضف تقييمك', 'Give Us a Review')}
+</a>
             <a
               href="https://www.instagram.com/italianobari.sa"
               target="_blank"
