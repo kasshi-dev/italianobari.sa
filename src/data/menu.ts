@@ -225,11 +225,11 @@ export const SECTIONS: MenuSection[] = [
     ar: 'المشروبات',
     en: 'Drinks',
     drinks: [
-        { ar: 'عصير ليمون', en: 'Lemonade', img: '/menu/lemonade.jpg', price: 9 },
-        { ar: 'كولا', en: 'Cola', img: '/menu/cola.jpg', price: 4 },
-        { ar: 'سبرايت', en: 'Sprite', img: '/menu/sprite.jpg', price: 4 },
-        { ar: 'ماء', en: 'Water', img: '/menu/water.jpg', price: 2 },
-    ],
+    { ar: 'عصير ليمون', en: 'Lemonade', img: '/menu/lemonade.jpg', price: 9 },
+    { ar: 'كولا', en: 'Cola', img: '/menu/cola.jpg', price: 4 },
+    { ar: 'سبرايت', en: 'Sprite', img: '/menu/sprite.jpg', price: 4 },
+    { ar: 'ماء', en: 'Water', img: '/menu/water.jpg', price: 2 },
+],
 }
 ]
 
