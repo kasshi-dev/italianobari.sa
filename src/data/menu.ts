@@ -129,6 +129,17 @@ export const SECTIONS: MenuSection[] = [
           { label: 'كبير', labelEn: 'Large', value: 37 },
         ],
       },
+      {
+      arName: 'بيتزا نصف ونصف',
+      enName: 'Half & Half Pizza',
+      img: '/menu/bari-pizza.jpg',
+      descAr: 'اختر نصفين من البيتزا المفضلة لديك في بيتزا واحدة!',
+      descEn: 'Choose two halves of your favorite pizzas in one pie!',
+      prices: [
+        { label: 'صغير', labelEn: 'Small', value: 29 },
+        { label: 'كبير', labelEn: 'Large', value: 37 },
+      ],
+    },
     ],
   },
   {
