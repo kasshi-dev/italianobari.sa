@@ -55,6 +55,10 @@ export const SECTIONS: MenuSection[] = [
         badge: 'new special',
         note: 'حار / غير حار',
         noteEn: 'Spicy / Mild',
+        descAr:
+          'بيتزا إيطالية أصيلة على الطريقة النابولية بعجينة حرفية تقليدية بنقاط مميزة تشبه جلد الفهد. مغطاة بصلصة الطماطم الإيطالية الغنية وجبن الموزاريلا فيور دي لاتي الذائب ودجاج متبّل شهي، وتُزيَّن بخيط من صلصة الشيف الخاصة.',
+        descEn:
+          'Authentic Italian Neapolitan-style pizza crafted with a traditional leopard-spotted artisan crust. Topped with rich Italian tomato sauce, melted mozzarella fior di latte, savory seasoned chicken, and finished with a chef’s signature sauce drizzle.',
         prices: [
           { label: 'صغير', labelEn: 'Small', value: 29 },
           { label: 'كبير', labelEn: 'Large', value: 37 },
@@ -64,6 +68,10 @@ export const SECTIONS: MenuSection[] = [
         arName: 'بيتزا ببروني',
         enName: 'Pepperoni Pizza',
         img: '/menu/pepperoni-pizza.jpg',
+        descAr:
+          'بيتزا نابوليتانية مخبوزة على الحطب بصلصة طماطم غنية وجبن موزاريلا ذائب وشرائح ببروني لحم بقري مقرمشة.',
+        descEn:
+          'Wood-fired Neapolitan pizza topped with rich tomato sauce, melted mozzarella cheese, and crispy beef pepperoni slices.',
         prices: [
           { label: 'صغير', labelEn: 'Small', value: 29 },
           { label: 'كبير', labelEn: 'Large', value: 37 },
@@ -73,6 +81,10 @@ export const SECTIONS: MenuSection[] = [
         arName: 'بيتزا ترفل',
         enName: 'Truffle Pizza',
         img: '/menu/truffle-pizza.jpg',
+        descAr:
+          'بيتزا نابوليتانية مخبوزة على الحطب بقاعدة صلصة بيضاء كريمية وجبن موزاريلا ذائب وشرائح فطر طازج.',
+        descEn:
+          'Wood-fired Neapolitan pizza with a creamy white sauce base, melted mozzarella cheese, and sliced fresh mushrooms.',
         prices: [
           { label: 'صغير', labelEn: 'Small', value: 29 },
           { label: 'كبير', labelEn: 'Large', value: 37 },
@@ -82,6 +94,10 @@ export const SECTIONS: MenuSection[] = [
         arName: 'بيتزا الخضار',
         enName: 'Vegetables Pizza',
         img: '/menu/veg-pizza.jpg',
+        descAr:
+          'بيتزا نابوليتانية مخبوزة على الحطب بصلصة طماطم غنية وجبن موزاريلا ذائب وشرائح فلفل ملوّن وأعشاب طازجة.',
+        descEn:
+          'Wood-fired Neapolitan pizza topped with rich tomato sauce, melted mozzarella cheese, sliced bell peppers, and fresh herbs.',
         prices: [
           { label: 'صغير', labelEn: 'Small', value: 25 },
           { label: 'كبير', labelEn: 'Large', value: 33 },
@@ -91,6 +107,10 @@ export const SECTIONS: MenuSection[] = [
         arName: 'بيتزا مارغريتا',
         enName: 'Margherita Pizza',
         img: '/menu/margherita-pizza.jpg',
+        descAr:
+          'بيتزا نابوليتانية كلاسيكية مخبوزة على الحطب بصلصة طماطم غنية وموزاريلا طازجة ذائبة وزيت زيتون بكر ممتاز وأوراق ريحان طازجة.',
+        descEn:
+          'Classic wood-fired Neapolitan pizza topped with rich tomato sauce, melted fresh mozzarella, extra virgin olive oil, and fresh basil leaves.',
         prices: [
           { label: 'صغير', labelEn: 'Small', value: 25 },
           { label: 'كبير', labelEn: 'Large', value: 33 },
@@ -100,6 +120,10 @@ export const SECTIONS: MenuSection[] = [
         arName: 'بيتزا البيانكا بالدجاج',
         enName: 'Bianca Chicken Pizza',
         img: '/menu/bianca-chicken-pizza.jpg',
+        descAr:
+          'بيتزا نابوليتانية مخبوزة على الحطب بقاعدة صلصة بيضاء كريمية وجبن موزاريلا ذائب ومكعبات دجاج متبّلة ورذاذ من زيت الزيتون.',
+        descEn:
+          'Wood-fired Neapolitan pizza topped with a creamy white sauce base, melted mozzarella cheese, seasoned chicken cubes, and a drizzle of olive oil.',
         prices: [
           { label: 'صغير', labelEn: 'Small', value: 29 },
           { label: 'كبير', labelEn: 'Large', value: 37 },
@@ -118,18 +142,30 @@ export const SECTIONS: MenuSection[] = [
         arName: 'مكرونة سباغيتي بالدجاج - صلصه حمراء',
         enName: 'Spaghetti Pasta | Red Sauce',
         img: DRIVE('1hhqxGSjQxKypADfKqMFnbUUZ_4X5Oz6U'),
+        descAr:
+          'سباغيتي كلاسيكية بصلصة الطماطم واللحم المفروم الغنية، تعلوها قطع دجاج مشوي وجبن بارميزان وأوراق ريحان طازجة.',
+        descEn:
+          'Classic spaghetti tossed in a rich tomato and minced meat sauce, topped with grilled chicken, parmesan cheese, and fresh basil leaves.',
         prices: [{ value: 29, suffix: 'SR', single: true }],
       },
       {
         arName: 'مكرونة بيني بالدجاج - صلصة مُخلوطة',
         enName: 'Penne Pasta With Chicken | Mixed Sauce',
         img: DRIVE('1SWvuYCQ_Xvw1xv2SKO0YU6EMiybv51Is'),
+        descAr:
+          'معكرونة بيني بصلصة مارينارا غنية، تعلوها مكعبات دجاج مشوي وجبن بارميزان وأوراق ريحان طازجة.',
+        descEn:
+          'Penne pasta tossed in a rich marinara sauce, topped with grilled chicken cubes, parmesan cheese, and fresh basil leaves.',
         prices: [{ value: 29, suffix: 'SR', single: true }],
       },
       {
         arName: 'تلياتيلي بالدجاج - صلصة بيضاء',
         enName: 'Tagliatelle Pasta With Chicken | White Sauce',
         img: DRIVE('1ehnFOkgvrmPmETfYZRsc4dDAcj6sNeek'),
+        descAr:
+          'معكرونة فيتوتشيني بصلصة الفطر الكريمية، تُقدَّم مع مكعبات دجاج مشوي وجبن بارميزان وأوراق ريحان طازجة.',
+        descEn:
+          'Fettuccine pasta tossed in a creamy mushroom sauce, served with grilled chicken cubes, parmesan, and fresh basil leaves.',
         prices: [{ value: 29, suffix: 'SR', single: true }],
       },
     ],
@@ -145,18 +181,28 @@ export const SECTIONS: MenuSection[] = [
         arName: 'البطاطس',
         enName: 'Fries',
         img: '/menu/fries.jpg',
+        descAr: 'بطاطس مقلية ذهبية، مقرمشة من الخارج وطرية من الداخل.',
+        descEn: 'Golden crispy french fries, crispy on the outside and tender on the inside.',
         prices: [{ value: 11, suffix: 'SR', single: true }],
       },
       {
         arName: 'سلطة شمندر',
         enName: 'Beetroot Salad',
         img: DRIVE('14JjJ4J8uJNL_sTevlUjPaeUUgmnULRow'),
+        descAr:
+          'مزيج شهي من مكعبات الشمندر الطري والجرجير اللاذع وجبن مفتت ومكسرات مجروشة، تُزيَّن بخيط من الصوص الكريمي الخاص.',
+        descEn:
+          'A delicious mix of tender beetroot cubes, peppery arugula, crumbled cheese, and crushed nuts, finished with a signature creamy drizzle.',
         prices: [{ value: 17, suffix: 'SR', single: true }],
       },
       {
         arName: 'سلطة الخوخ',
         enName: 'Peach Salad',
         img: DRIVE('1dEc1va0mYbC_ycgUk0J3PPxVK5E1LNiD'),
+        descAr:
+          'شرائح خوخ طازجة فوق خس روماني مقرمش وجرجير بري، تعلوها جبن بارميزان وصلصتنا الكريمية الخاصة.',
+        descEn:
+          'Fresh sliced peaches over crisp Romaine lettuce and wild arugula, topped with parmesan cheese and our creamy house dressing.',
         prices: [{ value: 17, suffix: 'SR', single: true }],
       },
     ],
