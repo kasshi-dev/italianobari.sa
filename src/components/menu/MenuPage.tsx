@@ -209,6 +209,9 @@ export default function MenuPage({ session, onOpenLoyalty }: Props) {
 }
 
 function ItemCard({ item, lang, onZoom }: { item: MenuItem; lang: Lang; onZoom: () => void }) {
+  const [open, setOpen] = useState(false)
+  const desc = lang === 'ar' ? item.descAr : item.descEn
+
   return (
     <div className="ib-item">
       {item.badge ? (
@@ -224,6 +227,49 @@ function ItemCard({ item, lang, onZoom }: { item: MenuItem; lang: Lang; onZoom: 
         <div className="ar-name">{lang === 'ar' ? item.arName : item.enName}</div>
         <div className="en-name">{lang === 'ar' ? item.enName : item.arName}</div>
         {item.note && <div className="note">{lang === 'ar' ? item.note : (item.noteEn ?? item.note)}</div>}
+
+        {desc && (
+          <>
+            <div
+              className="ib-desc"
+              onClick={() => setOpen((v) => !v)}
+              style={{
+                fontSize: 12,
+                lineHeight: 1.5,
+                color: 'var(--grey)',
+                marginTop: 4,
+                cursor: 'pointer',
+                ...(open
+                  ? {}
+                  : {
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical' as const,
+                      overflow: 'hidden',
+                    }),
+              }}
+            >
+              {desc}
+            </div>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: 0,
+                marginTop: 2,
+                fontSize: 11,
+                fontWeight: 700,
+                color: 'var(--basil)',
+                cursor: 'pointer',
+              }}
+            >
+              {open ? (lang === 'ar' ? 'أقل' : 'Less') : lang === 'ar' ? 'المزيد' : 'More'}
+            </button>
+          </>
+        )}
+
         <div className="price-row">
           {item.prices.map((p, i) => (
             <div className="ib-price-box" key={`${p.label ?? 'single'}-${i}`}>
