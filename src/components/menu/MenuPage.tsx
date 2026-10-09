@@ -116,12 +116,13 @@ export default function MenuPage({ session, onOpenLoyalty }: Props) {
             <a href={waHref} target="_blank" rel="noopener noreferrer">
               <MessageCircle /> WhatsApp
             </a>
-             <a
-  href="https://g.page/r/CVRDyVfzuEPPEAE/review"
-  target="_blank"
+             <a 
+  href="https://g.page/r/CVRDyVfzuEPPEAE/review" 
+  target="_blank" 
   rel="noopener noreferrer"
+  style={{ fontSize: '18px', padding: '12px 20px' }} // Yahan font size aur padding bada kar diya hai
 >
-  <Star size={26} /> {pick('أضف تقييمك', 'Give Us a Review')}
+  <Star size={32} /> {pick('أضف تقييمك', 'Give Us a Review')}
 </a>
             <a
               href="https://www.instagram.com/italianobari.sa"
