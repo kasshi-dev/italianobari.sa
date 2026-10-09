@@ -232,11 +232,13 @@ export const SECTIONS: MenuSection[] = [
             prices: [{ value: 9, suffix: 'SR', single: true }],
         },
         {
-            arName: 'كولا',
-            enName: 'Cola',
-            img: '/menu/cola.jpg',
-            prices: [{ value: 4, suffix: 'SR', single: true }],
-        },
+    arName: 'كولا',
+    enName: 'Cola',
+    img: '/menu/cola.jpg',
+    descAr: 'كولا زيرو، كولا لايت، كولا ريجولار',
+    descEn: 'Cola Zero, Cola Light, Cola Regular',
+    prices: [{ value: 4, suffix: 'SR', single: true }],
+},
         {
             arName: 'سبرايت',
             enName: 'Sprite',
