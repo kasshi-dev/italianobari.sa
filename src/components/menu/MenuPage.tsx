@@ -121,7 +121,7 @@ export default function MenuPage({ session, onOpenLoyalty }: Props) {
   target="_blank"
   rel="noopener noreferrer"
 >
-  <Star size={16} /> {pick('أضف تقييمك', 'Give Us a Review')}
+  <Star size={26} /> {pick('أضف تقييمك', 'Give Us a Review')}
 </a>
             <a
               href="https://www.instagram.com/italianobari.sa"
