@@ -116,13 +116,13 @@ export default function MenuPage({ session, onOpenLoyalty }: Props) {
             <a href={waHref} target="_blank" rel="noopener noreferrer">
               <MessageCircle /> WhatsApp
             </a>
-            <a
-  href="https://g.page/r/CVRDyVfzuEPPEAE/review"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  <Star /> ⭐ Give Us a Review
-</a>
+                        <a
+              href="https://maps.app.goo.gl/bSbbJE3dEfjpRJBa9"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MapPin /> {pick('الموقع', 'Location')}
+            </a>
             <a
               href="https://www.instagram.com/italianobari.sa"
               target="_blank"
