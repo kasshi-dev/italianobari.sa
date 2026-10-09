@@ -44,7 +44,7 @@ export function useStaffLang() {
   return {
     lang,
     dir: (lang === 'en' ? 'ltr' : 'rtl') as 'ltr' | 'rtl',
-    /** t(arabic, english). Any extra arguments are ignored. */
-    t: <T,>(ar: T, en: T, ..._ignored: unknown[]): T => (lang === 'ar' ? ar : en),
+    /** t(arabic, english) */
+    t: <T,>(ar: T, en: T): T => (lang === 'ar' ? ar : en),
   }
 }
