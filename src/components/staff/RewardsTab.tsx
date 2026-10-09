@@ -4,6 +4,7 @@ import { Loader2, Pencil, Plus, Trash2, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ApiError, staffApi, type RewardView } from '@/lib/loyalty'
+import { useStaffLang } from '@/lib/staffI18n'
 
 interface Props {
   token: string
@@ -13,6 +14,7 @@ interface Props {
 const EMOJI_CHOICES = ['🍕', '🥗', '🥤', '🍝', '🥖', '🍰', '💸', '🎁', '☕']
 
 export default function RewardsTab({ token, onAuthLost }: Props) {
+  const { t } = useStaffLang()
   const [rewards, setRewards] = useState<RewardView[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -71,12 +73,14 @@ export default function RewardsTab({ token, onAuthLost }: Props) {
       <div className="staff-card">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <div className="text-base font-extrabold">المكافآت</div>
-            <div className="ib-hint">حدّد ما يمكن للعملاء استبدال نقاطهم به</div>
+            <div className="text-base font-extrabold">{t('المكافآت', 'Rewards')}</div>
+            <div className="ib-hint">
+              {t('حدّد ما يمكن للعملاء استبدال نقاطهم به', 'Choose what customers can redeem their points for')}
+            </div>
           </div>
           <Button size="sm" variant={showAdd ? 'outline' : 'default'} onClick={() => setShowAdd((v) => !v)}>
             {showAdd ? <X size={15} /> : <Plus size={15} />}
-            {showAdd ? 'إلغاء' : 'مكافأة جديدة'}
+            {showAdd ? t('إلغاء', 'Cancel') : t('مكافأة جديدة', 'New reward')}
           </Button>
         </div>
 
@@ -84,15 +88,15 @@ export default function RewardsTab({ token, onAuthLost }: Props) {
           <div className="mt-4 grid gap-3 border-t border-[rgba(30,68,48,.12)] pt-4">
             <div className="grid gap-3 sm:grid-cols-2">
               <label className="ib-field mb-0">
-                <span>الاسم بالعربي</span>
+                <span>{t('الاسم بالعربي', 'Name in Arabic')}</span>
                 <Input value={draft.titleAr} onChange={(e) => setDraft({ ...draft, titleAr: e.target.value })} />
               </label>
               <label className="ib-field mb-0">
-                <span>الاسم بالإنجليزي</span>
+                <span>{t('الاسم بالإنجليزي', 'Name in English')}</span>
                 <Input value={draft.titleEn} onChange={(e) => setDraft({ ...draft, titleEn: e.target.value })} />
               </label>
               <label className="ib-field mb-0">
-                <span>عدد النقاط</span>
+                <span>{t('عدد النقاط', 'Points cost')}</span>
                 <Input
                   inputMode="numeric"
                   value={draft.costPoints}
@@ -100,7 +104,7 @@ export default function RewardsTab({ token, onAuthLost }: Props) {
                 />
               </label>
               <div className="ib-field mb-0">
-                <span>الرمز</span>
+                <span>{t('الرمز', 'Icon')}</span>
                 <div className="flex flex-wrap gap-1">
                   {EMOJI_CHOICES.map((em) => (
                     <button
@@ -131,10 +135,10 @@ export default function RewardsTab({ token, onAuthLost }: Props) {
                   })
                   setDraft({ titleAr: '', titleEn: '', costPoints: '', emoji: '🎁' })
                   setShowAdd(false)
-                }, 'تمت إضافة المكافأة')
+                }, t('تمت إضافة المكافأة', 'Reward added'))
               }
             >
-              حفظ المكافأة
+              {t('حفظ المكافأة', 'Save reward')}
             </Button>
           </div>
         )}
@@ -157,7 +161,7 @@ export default function RewardsTab({ token, onAuthLost }: Props) {
                   run(async () => {
                     await staffApi.updateReward(token, r.id, data)
                     setEditing(null)
-                  }, 'تم تحديث المكافأة')
+                  }, t('تم تحديث المكافأة', 'Reward updated'))
                 }
               />
             ) : (
@@ -165,20 +169,20 @@ export default function RewardsTab({ token, onAuthLost }: Props) {
                 <span className="text-2xl">{r.emoji}</span>
                 <div className="min-w-0 flex-1">
                   <div className="font-extrabold">
-                    {r.titleAr}
+                    {t(r.titleAr, r.titleEn)}
                     {r.active === false && (
                       <span className="staff-badge rejected" style={{ marginInlineStart: 8 }}>
-                        مخفية
+                        {t('مخفية', 'Hidden')}
                       </span>
                     )}
                   </div>
                   <div className="text-xs font-bold text-[var(--grey)]">
-                    {r.titleEn} • {r.costPoints} نقطة
+                    {t(r.titleEn, r.titleAr)} • {r.costPoints} {t('نقطة', 'points')}
                   </div>
                 </div>
                 <div className="flex gap-2">
                   <Button size="sm" variant="outline" onClick={() => setEditing(r.id)}>
-                    <Pencil size={14} /> تعديل
+                    <Pencil size={14} /> {t('تعديل', 'Edit')}
                   </Button>
                   <Button
                     size="sm"
@@ -187,18 +191,20 @@ export default function RewardsTab({ token, onAuthLost }: Props) {
                     onClick={() =>
                       run(
                         () => staffApi.updateReward(token, r.id, { active: r.active === false }),
-                        r.active === false ? 'تم تفعيل المكافأة' : 'تم إخفاء المكافأة',
+                        r.active === false
+                          ? t('تم تفعيل المكافأة', 'Reward activated')
+                          : t('تم إخفاء المكافأة', 'Reward hidden'),
                       )
                     }
                   >
-                    {r.active === false ? 'تفعيل' : 'إخفاء'}
+                    {r.active === false ? t('تفعيل', 'Activate') : t('إخفاء', 'Hide')}
                   </Button>
                   <Button
                     size="sm"
                     variant="ghost"
                     disabled={busy}
                     onClick={() =>
-                      run(() => staffApi.deleteReward(token, r.id), 'تم حذف المكافأة')
+                      run(() => staffApi.deleteReward(token, r.id), t('تم حذف المكافأة', 'Reward deleted'))
                     }
                   >
                     <Trash2 size={14} />
@@ -225,6 +231,7 @@ function EditRow({
   onCancel: () => void
   onSave: (data: Partial<RewardView>) => void
 }) {
+  const { t } = useStaffLang()
   const [titleAr, setTitleAr] = useState(reward.titleAr)
   const [titleEn, setTitleEn] = useState(reward.titleEn)
   const [cost, setCost] = useState(String(reward.costPoints))
@@ -234,15 +241,15 @@ function EditRow({
     <div className="grid gap-3">
       <div className="grid gap-3 sm:grid-cols-3">
         <label className="ib-field mb-0">
-          <span>الاسم بالعربي</span>
+          <span>{t('الاسم بالعربي', 'Name in Arabic')}</span>
           <Input value={titleAr} onChange={(e) => setTitleAr(e.target.value)} />
         </label>
         <label className="ib-field mb-0">
-          <span>الاسم بالإنجليزي</span>
+          <span>{t('الاسم بالإنجليزي', 'Name in English')}</span>
           <Input value={titleEn} onChange={(e) => setTitleEn(e.target.value)} />
         </label>
         <label className="ib-field mb-0">
-          <span>النقاط</span>
+          <span>{t('النقاط', 'Points')}</span>
           <Input inputMode="numeric" value={cost} onChange={(e) => setCost(e.target.value.replace(/\D/g, ''))} />
         </label>
       </div>
@@ -267,10 +274,10 @@ function EditRow({
           disabled={busy}
           onClick={() => onSave({ titleAr, titleEn, costPoints: Number(cost), emoji })}
         >
-          حفظ
+          {t('حفظ', 'Save')}
         </Button>
         <Button variant="outline" onClick={onCancel}>
-          إلغاء
+          {t('إلغاء', 'Cancel')}
         </Button>
       </div>
     </div>
