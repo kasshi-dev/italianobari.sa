@@ -160,21 +160,7 @@ export default function MenuPage({ session, onOpenLoyalty }: Props) {
                 <Gift size={15} /> {pick('بطاقة الولاء', 'Loyalty Card')}
               </span>
             </button>
-            <a
-              href="#/staff"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                marginTop: 12,
-                fontSize: 12,
-                fontWeight: 700,
-                color: 'var(--grey)',
-                textDecoration: 'none',
-              }}
-            >
-              <ShieldCheck size={14} /> {pick('دخول الموظفين / Staff', 'Staff Login')}
-            </a>
+            
           </div>
         </footer>
 
